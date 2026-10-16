@@ -40,9 +40,15 @@ strong { font-weight: 900; }
   overflow: hidden;
   padding: 26px 20px 40px;
   color: #fff;
-  background:
-    radial-gradient(circle at 50% 100%, transparent 13px, rgba(255, 255, 255, 0.06) 14px, rgba(255, 255, 255, 0.06) 16px, transparent 17px) 0 0 / 44px 22px,
-    linear-gradient(160deg, #2a3a8f 0%, var(--ink) 55%, var(--ink-deep) 100%);
+  /* 青海波（通帳の表紙の地紋）。上に薄い影を重ねて奥行きを出す */
+  background: var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'%3E%3Cg stroke='%23ffffff' stroke-opacity='.09' stroke-width='1.3' fill='none'%3E%3Ccircle cx='0' cy='0' r='20' fill='%2323307a'/%3E%3Ccircle cx='0' cy='0' r='20'/%3E%3Ccircle cx='0' cy='0' r='15'/%3E%3Ccircle cx='0' cy='0' r='10'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='40' cy='0' r='20' fill='%2323307a'/%3E%3Ccircle cx='40' cy='0' r='20'/%3E%3Ccircle cx='40' cy='0' r='15'/%3E%3Ccircle cx='40' cy='0' r='10'/%3E%3Ccircle cx='40' cy='0' r='5'/%3E%3Ccircle cx='20' cy='10' r='20' fill='%2323307a'/%3E%3Ccircle cx='20' cy='10' r='20'/%3E%3Ccircle cx='20' cy='10' r='15'/%3E%3Ccircle cx='20' cy='10' r='10'/%3E%3Ccircle cx='20' cy='10' r='5'/%3E%3Ccircle cx='0' cy='20' r='20' fill='%2323307a'/%3E%3Ccircle cx='0' cy='20' r='20'/%3E%3Ccircle cx='0' cy='20' r='15'/%3E%3Ccircle cx='0' cy='20' r='10'/%3E%3Ccircle cx='0' cy='20' r='5'/%3E%3Ccircle cx='40' cy='20' r='20' fill='%2323307a'/%3E%3Ccircle cx='40' cy='20' r='20'/%3E%3Ccircle cx='40' cy='20' r='15'/%3E%3Ccircle cx='40' cy='20' r='10'/%3E%3Ccircle cx='40' cy='20' r='5'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 40px 20px;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(60, 80, 170, 0.35) 0%, rgba(35, 48, 122, 0) 45%, rgba(10, 16, 60, 0.55) 100%);
+  pointer-events: none;
 }
 .cover::after {
   /* 表紙の下の、通帳の綴じ目のような二重線 */
@@ -87,10 +93,10 @@ strong { font-weight: 900; }
 /* 表紙の右上に押されたハンコ */
 .hanko {
   position: absolute;
-  top: 54px;
-  right: 2px;
-  width: 104px;
-  height: 104px;
+  top: 6px;
+  right: 0;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   background: var(--stamp);
   display: flex;
@@ -101,8 +107,8 @@ strong { font-weight: 900; }
   animation: stamp 0.7s cubic-bezier(0.3, 1.3, 0.5, 1) both 0.3s;
 }
 .hanko span {
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 2px dashed rgba(255, 255, 255, 0.85);
   display: flex;
@@ -119,8 +125,8 @@ strong { font-weight: 900; }
   100% { opacity: 1; transform: scale(1) rotate(-12deg); }
 }
 @media (max-width: 520px) {
-  .hanko { top: auto; bottom: 20px; right: 0; width: 78px; height: 78px; }
-  .hanko span { width: 66px; height: 66px; font-size: 13px; }
+  .hanko { top: 4px; width: 74px; height: 74px; }
+  .hanko span { width: 62px; height: 62px; font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) { .hanko { animation: none; } }
 
@@ -181,6 +187,15 @@ th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-botto
 tr:last-child td { border-bottom: none; }
 th { background: var(--soft); font-weight: 900; font-size: 12px; letter-spacing: 0.1em; }
 td:first-child { width: 30%; font-weight: 900; }
+@media (max-width: 600px) {
+  .table-wrap { overflow: visible; }
+  table { min-width: 0; }
+  thead { display: none; }
+  tr { display: block; padding: 12px 16px; border-bottom: 2px dotted var(--line); }
+  tr:last-child { border-bottom: none; }
+  td { display: block; width: auto; padding: 0; border: none; }
+  td:first-child { width: auto; margin-bottom: 4px; color: var(--stamp-text); font-size: 13px; letter-spacing: 0.05em; }
+}
 
 /* 期間の一覧（保管期間） */
 .ledger { margin: 12px 0; background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 4px 16px; }
